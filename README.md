@@ -56,5 +56,3 @@ pnpm build      # production build
 - Cross-device sync
 - LinkedIn API import
 - Web Push follow-up reminders
-
-test
