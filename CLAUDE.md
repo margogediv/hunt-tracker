@@ -105,3 +105,9 @@ Always use these tokens instead of raw hex or arbitrary Tailwind colors.
 - **RTK over Zustand** — RTK is the dominant production pattern; chosen to demonstrate it
 - **@dnd-kit over react-beautiful-dnd** — rbd was archived by Atlassian in 2024
 - **Vitest over Jest** — native ESM + Vite config, faster, compatible API
+
+## Day prompts & specs
+
+@instructions/job-hunt-tracker.md
+@instructions/day-2-prompt.md
+@instructions/day-2-agent-prompt.md
