@@ -1,27 +1,22 @@
-import type { Application } from '../../features/applications/types'
+import type { Application } from '@/features/applications/types'
 
-export const mockApplication: Application = {
-  id: 'test-1',
-  company: 'Acme Corp',
-  position: 'Frontend Developer',
-  status: 'applied',
-  appliedAt: '2026-04-15',
-  events: [],
-  createdAt: '2026-04-15T10:00:00.000Z',
-  updatedAt: '2026-04-15T10:00:00.000Z',
+let counter = 0
+
+export function makeApplication(overrides: Partial<Application> = {}): Application {
+  counter += 1
+  const now = new Date('2026-05-01T10:00:00.000Z').toISOString()
+  return {
+    id: `test-id-${counter}`,
+    company: 'Acme Corp',
+    position: 'Senior Frontend Developer',
+    status: 'applied',
+    appliedAt: now,
+    createdAt: now,
+    updatedAt: now,
+    ...overrides,
+  }
 }
 
-export const mockApplications: Application[] = [
-  mockApplication,
-  {
-    id: 'test-2',
-    company: 'TechStart',
-    position: 'React Developer',
-    status: 'screening',
-    appliedAt: '2026-04-20',
-    techStack: ['React', 'TypeScript'],
-    events: [],
-    createdAt: '2026-04-20T09:00:00.000Z',
-    updatedAt: '2026-04-21T14:00:00.000Z',
-  },
-]
+export function resetMakeApplication(): void {
+  counter = 0
+}

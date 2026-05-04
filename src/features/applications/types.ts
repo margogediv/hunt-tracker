@@ -1,14 +1,27 @@
-export type ApplicationStatus =
-  | 'wishlist'
-  | 'applied'
-  | 'screening'
-  | 'tech_interview'
-  | 'final_interview'
-  | 'offer'
-  | 'rejected'
-  | 'withdrawn'
+export const APPLICATION_STATUSES = [
+  'wishlist',
+  'applied',
+  'screening',
+  'tech_interview',
+  'final_interview',
+  'offer',
+  'rejected',
+  'withdrawn',
+] as const
 
-export type WorkMode = 'onsite' | 'hybrid' | 'remote'
+export type ApplicationStatus = (typeof APPLICATION_STATUSES)[number]
+
+export const WORK_MODES = ['onsite', 'hybrid', 'remote'] as const
+export type WorkMode = (typeof WORK_MODES)[number]
+
+export const CURRENCIES = ['EUR', 'PLN', 'USD'] as const
+export type Currency = (typeof CURRENCIES)[number]
+
+export interface Salary {
+  min?: number
+  max?: number
+  currency: Currency
+}
 
 export interface Application {
   id: string
@@ -19,28 +32,41 @@ export interface Application {
   url?: string
   location?: string
   workMode?: WorkMode
-  salary?: {
-    min?: number
-    max?: number
-    currency: 'EUR' | 'PLN' | 'USD'
-  }
+  salary?: Salary
   techStack?: string[]
   notes?: string
   contactName?: string
   contactEmail?: string
   tags?: string[]
-  events: ApplicationEvent[]
   createdAt: string
   updatedAt: string
 }
+
+export type ApplicationDraft = Omit<Application, 'id' | 'status' | 'createdAt' | 'updatedAt'> & {
+  status?: ApplicationStatus
+}
+
+export const APPLICATION_EVENT_TYPES = [
+  'created',
+  'status_change',
+  'note',
+  'interview_scheduled',
+  'email',
+] as const
+
+export type ApplicationEventType = (typeof APPLICATION_EVENT_TYPES)[number]
 
 export interface ApplicationEvent {
   id: string
   applicationId: string
   date: string
-  type: 'status_change' | 'note' | 'interview_scheduled' | 'email'
+  type: ApplicationEventType
   description: string
   metadata?: Record<string, unknown>
+}
+
+export type ApplicationEventDraft = Omit<ApplicationEvent, 'id' | 'date'> & {
+  date?: string
 }
 
 export interface FilterState {
